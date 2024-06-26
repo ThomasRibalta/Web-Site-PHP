@@ -30,4 +30,19 @@ class Url {
     }
     return $value;
   }
+
+  /**
+   * is_good_post method to check if the post is good
+   *
+   * @param  mixed $post
+   * @param  mixed $slug
+   * @param  mixed $id
+   * @return void
+   */
+  public static function is_good_post($post, $slug, $id){
+    if (strcmp($post->getSlug(),$slug) || $post->getId() !== $id) {
+      header('Location: /');
+      exit();
+    }
+  }
 }

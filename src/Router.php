@@ -48,6 +48,7 @@ class Router{
   public function start(){
     $match = $this->router->match();
     $view = $match['target'];
+    $params = $match['params'];
     $router = $this;
     ob_start();
     require $this->path . $view;

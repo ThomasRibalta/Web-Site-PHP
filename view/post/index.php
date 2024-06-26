@@ -1,14 +1,12 @@
 <?php
 require dirname(__DIR__) . '/../vendor/autoload.php';
+use App\dbManager\DBManager;
+use App\Helper\Url;
 
 $title = 'Mon blog';
 
-$pdo = new PDO('sqlite:'.dirname(__DIR__).'/../data/data.db', null, null, [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-]);
-
-$nPage = (int)($_GET['page'] ?? 1) ?: 1;
+$pdo = DBManager::pdoConnexion();
+$nPage = Url::getIntValue('page');
 $count = $pdo->query('SELECT COUNT(id) FROM POSTS')->fetch(PDO::FETCH_NUM)[0];
 $perPage = 16;
 $pages = ceil($count / $perPage);

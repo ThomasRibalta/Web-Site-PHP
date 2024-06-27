@@ -22,7 +22,7 @@ class Router{
   }
   
   /**
-   * get is function to set a route for a GET request
+   * get is function to set a route for a only GET request
    *
    * @param  mixed $url
    * @param  mixed $template
@@ -31,7 +31,32 @@ class Router{
    */
   public function get(string $url, string $template, $title = null){
     $this->router->map('GET', $url, $template, $title);
-
+    return $this;
+  }
+  
+  /** 
+   * post is function to set a route for a only POST request
+   *
+   * @param  mixed $url
+   * @param  mixed $template
+   * @param  mixed $title
+   * @return void
+   */
+  public function post(string $url, string $template, $title = null){
+    $this->router->map('POST', $url, $template, $title);
+    return $this;
+  }
+  
+  /**
+   * getPost is function to set a route for a GET and POST request
+   *
+   * @param  mixed $url
+   * @param  mixed $template
+   * @param  mixed $title
+   * @return void
+   */
+  public function getPost(string $url, string $template, $title = null){
+    $this->router->map('GET|POST', $url, $template, $title);
     return $this;
   }
   

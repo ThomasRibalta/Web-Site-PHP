@@ -45,8 +45,8 @@ class Auth {
      */
     public function requireRole(string ...$roles): void {
         $user = $this->getUser();
-        if ($user === null || in_array($user->role, $roles) === false){
-            header('Location: /login.php');
+        if ($user === null || in_array($user->rank_id, $roles) === false){
+            header('Location: /login');
             exit();
         }
     }

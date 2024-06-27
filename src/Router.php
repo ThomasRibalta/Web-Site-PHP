@@ -2,6 +2,7 @@
 
 namespace App;
 use AltoRouter;
+use App\Helper\URL;
 
 class Router{
 
@@ -47,6 +48,7 @@ class Router{
 
   public function start(){
     $match = $this->router->match();
+    URL::request_slash($_SERVER['REQUEST_URI']);
     $view = $match['target'];
     $params = $match['params'];
     $router = $this;

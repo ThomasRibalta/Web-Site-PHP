@@ -45,4 +45,11 @@ class Url {
       exit();
     }
   }
+
+  public static function request_slash($url){
+    if ($url !== '/' && substr($url, -1) === '/') {
+      header('Location: ' . substr($url, 0, -1));
+      exit();
+    }
+  }
 }

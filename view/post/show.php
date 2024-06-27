@@ -7,8 +7,8 @@ $pdo = DBManager::pdoConnexion();
 $id = (int) $params['id'];
 $slug = $params['slug'];
 $post = $pdo->query("SELECT * FROM POSTS WHERE id=$id")->fetchAll(PDO::FETCH_CLASS, 'App\Model\Post')[0];
-
 Url::is_good_post($post, $slug, $id);
+$post_categorie = $pdo->query("SELECT c.* FROM CATEGORIES c JOIN POSTS_CATEGORIES pc ON c.id = pc.id_categorie WHERE pc.id_post = $id")->fetchAll(PDO::FETCH_CLASS, 'App\Model\Category');
 
 ?>
 
@@ -17,6 +17,11 @@ Url::is_good_post($post, $slug, $id);
     <h5 class="card-title"><?= $post->getTitle() ?></h5>
     <p class="card-text"><?= $post->getContent() ?></p>
     <p class="card-text"><small class="text-muted"><?= $post->getCreatedAt() ?></small></p>
+  </div>
+  <div class="mb-2">
+    <?php foreach ($post_categorie as $categorie): ?>
+      <a href="<?= $router->generateUrl('Category', ['slug' => $categorie->getSlug(), 'id' => $categorie->getId()]) ?>"><?=$categorie->getName()?></a>
+    <?php endforeach ?>
   </div>
 </div>
 

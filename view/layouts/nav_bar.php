@@ -27,10 +27,6 @@ $user = $auth->getUser();
             <?= need_active('Categories', '/category');?>
         </ul>
     </div>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-light" type="submit">Search</button>
-    </form>
     <div class="d-flex ms-3">
       <?php if($user): ?>
         <a class="btn btn-outline-light" href="/logout">Logout</a>

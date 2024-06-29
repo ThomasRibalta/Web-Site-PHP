@@ -30,4 +30,20 @@ class CategoryTable extends Table {
     $query->execute(['name' => $name, 'id' => $id]);
   }
 
+  public function findAllCategories() {
+    $query = $this->pdo->query("SELECT * FROM CATEGORIES");
+    $categories = $query->fetchAll(\PDO::FETCH_CLASS, 'App\Model\Category');
+    return $categories;
+  }
+
+  public function createCategory(string $name) {
+    $query = $this->pdo->prepare("INSERT INTO CATEGORIES (name) VALUES (:name)");
+    $query->execute(['name' => $name]);
+  }
+
+  public function createPostCategory(int $id_post, int $id_categorie) {
+    $query = $this->pdo->prepare("INSERT INTO POSTS_CATEGORIES (id_post, id_categorie) VALUES (:id_post, :id_categorie)");
+    $query->execute(['id_post' => $id_post, 'id_categorie' => $id_categorie]);
+  }
+  
 }

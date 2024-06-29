@@ -43,6 +43,6 @@ $postTable = new PostTable(DBManager::pdoConnexion());
     <?php endforeach?>
   </tbody>
 </table>
-<a href="#" class="btn btn-primary">Create a new Post</a>
+<a href="/newPost" class="btn btn-primary">Create a new Post</a>
 
 <?= $pagination->getPageNumberList() ?>

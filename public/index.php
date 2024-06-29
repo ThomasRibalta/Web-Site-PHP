@@ -6,11 +6,13 @@ define("DEBUG_TIME", microtime(true));
 
 $router = new Router(dirname(__DIR__) . '/view');
 $router->get('/', '/post/index.php', 'Blog')
+        ->getPost('/newPost', '/post/new.php', 'NewPost')
         ->get('/posts', '/post/index.php', 'Posts')
         ->get('/posts/[*:slug]-[i:id]', '/post/show.php', 'Post' )
         ->getPost('/posts/[*:slug]-[i:id]/edit', '/post/edit.php', 'EditPost')
         ->get('/posts/[*:slug]-[i:id]/delete', '/post/delete.php', 'DeletePost')
         ->get('/category', '/category/index.php', 'Categories')
+        ->getPost('/newCategory', '/category/new.php', 'NewCategory')
         ->get('/category/[*:slug]-[i:id]', '/category/show.php', 'Category')
         ->getPost('/login', '/auth/login.php', 'Login')
         ->get('/logout', '/auth/logout.php', 'Logout')

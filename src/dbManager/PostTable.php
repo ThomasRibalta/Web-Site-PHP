@@ -6,7 +6,7 @@ use App\Helper\Url;
 class PostTable extends Table{
 
   public function findPaginated() {
-    $pagination = new Pagination("SELECT * FROM POSTS ORDER BY created_at", "SELECT COUNT(id) FROM POSTS", 'App\Model\Post', "/", $this->pdo);
+    $pagination = new Pagination("SELECT * FROM POSTS ORDER BY created_at DESC", "SELECT COUNT(id) FROM POSTS", 'App\Model\Post', "/", $this->pdo);
     $posts = $pagination->getItems();
     return [$posts, $pagination];
   }
@@ -30,6 +30,12 @@ class PostTable extends Table{
     return [$posts, $pagination, $category];
   }
 
+  public function getPostBySearch(string $search) {
+    $pagination = new Pagination("SELECT * FROM POSTS WHERE title LIKE :search", "SELECT COUNT(id) FROM POSTS WHERE title LIKE :search OR content LIKE :search", 'App\Model\Post', "/search?search=$search", $this->pdo);
+    $posts = $pagination->getItems();
+    return [$posts, $pagination];
+  }
+
   public function deletePost(int $id) {
     $query = $this->pdo->prepare("DELETE FROM POSTS WHERE id = :id");
     $query->execute(['id' => $id]);
@@ -46,10 +52,17 @@ class PostTable extends Table{
   }
 
   public function createPost(string $title, string $slug, string $content) {
-    $query = $this->pdo->prepare("INSERT INTO POSTS SET title = :title, slug = :slug, content = :content");
-    $query->execute(['title' => $title,
-                     'slug' => $slug,
-                     'content' => $content]);
+    $query = $this->pdo->prepare("INSERT INTO POSTS (title, slug, content, created_at) VALUES (:title, :slug, :content, :created_at)");
+    $query->execute([
+        'title' => $title,
+        'slug' => $slug,
+        'content' => $content,
+        'created_at' => time()
+    ]);
+    $categoryTable = new CategoryTable($this->pdo);
+    foreach ($_POST['category'] as $category) {
+        $categoryTable->createPostCategory($this->pdo->lastInsertId(), $category);
+    }
   }
 
 }

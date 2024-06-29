@@ -6,7 +6,11 @@ use App\dbManager\PostTable;
 $title = 'Mon blog';
 
 $postTable = new PostTable(DBManager::pdoConnexion());
-$posts = $postTable->findPaginated();
+if (isset($_GET['search'])){
+  [$posts, $pagination] = $postTable->getPostBySearch($_GET['search']);
+}
+else
+  $posts = $postTable->findPaginated();
 
 ?>
 <h1> Mon blog </h1>

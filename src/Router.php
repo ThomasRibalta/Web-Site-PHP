@@ -70,10 +70,19 @@ class Router{
   public function generateURL(string $name, array $params = []){
     return $this->router->generate($name, $params);
   }
-
+  
+  /**
+   * start is function to start the router
+   *
+   * @return void
+   */
   public function start(){
     $match = $this->router->match();
     URL::request_slash($_SERVER['REQUEST_URI']);
+    if ($match === false) {
+      header('Location: /');
+      exit();
+    }
     $view = $match['target'];
     $params = $match['params'];
     $router = $this;

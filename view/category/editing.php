@@ -78,6 +78,6 @@ if ($delete !== 0)
   </tbody>
 </table>
 
-<a href="#" class="btn btn-primary">Create a new category</a>
+<a href="/newCategory" class="btn btn-primary">Create a new category</a>
 
 <?= $pagination->getPageNumberList() ?>

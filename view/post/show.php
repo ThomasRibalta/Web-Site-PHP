@@ -1,14 +1,14 @@
 <?php
 require dirname(__DIR__) . '/../vendor/autoload.php';
 use App\dbManager\DBManager;
-use App\Helper\Url;
+use App\dbManager\PostTable;
 
 $pdo = DBManager::pdoConnexion();
 $id = (int) $params['id'];
 $slug = $params['slug'];
-$post = $pdo->query("SELECT * FROM POSTS WHERE id=$id")->fetchAll(PDO::FETCH_CLASS, 'App\Model\Post')[0];
-Url::is_good_post($post, $slug, $id);
-$post_categorie = $pdo->query("SELECT c.* FROM CATEGORIES c JOIN POSTS_CATEGORIES pc ON c.id = pc.id_categorie WHERE pc.id_post = $id")->fetchAll(PDO::FETCH_CLASS, 'App\Model\Category');
+
+$postTable = new PostTable($pdo);
+[$post, $post_categorie] = $postTable->findPostById($id, $slug);
 
 ?>
 

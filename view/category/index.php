@@ -2,9 +2,11 @@
 $title = "Les categories";
 require dirname(__DIR__) . '/../vendor/autoload.php';
 use App\dbManager\DBManager;
+use App\dbManager\CategoryTable;
+
 $pdo = DBManager::pdoConnexion();
-$query = $pdo->query("SELECT * FROM CATEGORIES");
-$categories = $query->fetchAll(PDO::FETCH_CLASS, 'App\Model\Category');
+$categoryTable = new CategoryTable($pdo);
+[$categories, $pagination] = $categoryTable->findPaginated();
 ?>
 
 <h1>Les categories</h1>
@@ -15,3 +17,5 @@ $categories = $query->fetchAll(PDO::FETCH_CLASS, 'App\Model\Category');
     </li>
   <?php endforeach ?>
 </ul>
+
+<?= $pagination->getPageNumberList() ?>

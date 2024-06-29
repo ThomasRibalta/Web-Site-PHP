@@ -15,4 +15,6 @@ $router->get('/', '/post/index.php', 'Blog')
         ->getPost('/login', '/auth/login.php', 'Login')
         ->get('/logout', '/auth/logout.php', 'Logout')
         ->get('/editing', '/post/editing.php', 'Editing')
+        ->get('/editing/post', '/post/editing.php', 'EditingP')
+        ->getPost('/editing/category', '/category/editing.php', 'EditingC')
         ->start();

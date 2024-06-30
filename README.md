@@ -17,4 +17,6 @@ For add dificulty the tutorial decid to add a gestion of post and category. You 
 </p>
 
 # My MCD
-<img src="https://www.noelshack.com/2024-26-7-1719753442-untitled-diagram.jpg" />
+<p>
+  <img src="https://image.noelshack.com/fichiers/2024/26/7/1719753442-untitled-diagram.jpg" />
+</p>

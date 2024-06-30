@@ -2,6 +2,9 @@
 
 namespace App\Model;
 
+/**
+ * Post class to define a post
+ */
 class Post{
   private $id;
 

@@ -1,6 +1,9 @@
 <?php
 namespace App\Model;
 
+/**
+ * Category class to define a category
+ */
 class Category{
   private $id;
 

@@ -22,7 +22,12 @@ class Pagination{
     $this->className = $className;
     $this->default = $defaultUrl;
   }
-
+  
+  /**
+   * getOffset - Get the offset for the query
+   *
+   * @return int
+   */
   public function getOffset(): int{
     $count = $this->pdo->query($this->queryCount)->fetch(PDO::FETCH_NUM)[0];
     $nPage = Url::getIntValue('page');
@@ -34,7 +39,12 @@ class Pagination{
     $offset = $this->perPage * ($nPage - 1);
     return $offset;
   }
-
+  
+  /**
+   * getItems - Get the items for the query
+   *
+   * @return array
+   */
   public function getItems(): array{
     $offset = $this->getOffset();
     $this->query .= " OFFSET $offset";
@@ -42,7 +52,12 @@ class Pagination{
     $posts = $query->fetchAll(PDO::FETCH_CLASS, $this->className);
     return $posts;
   }
-
+  
+  /**
+   * getPageNumberList - Get the page number list
+   *
+   * @return string
+   */
   public function getPageNumberList(): string{
     $nPage = Url::getIntValue('page');
     $html = '';

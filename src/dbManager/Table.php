@@ -1,6 +1,9 @@
 <?php
 namespace App\dbManager;
 
+/**
+ * Table - Parent class for all tables
+ */
 class Table {
   protected $pdo;
 
